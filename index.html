@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="mint.js" type="text/javascript"></script>
+		<!-- <script src="mint.js" type="text/javascript"></script> -->
 		<meta charset="utf-8" />
 		<title>UK Cabutan Bertuah</title>		
 		<link href="demo.css" rel="stylesheet" />
@@ -13,7 +13,8 @@
 				overflow: hidden;
 			}
 			.pad {
-				width: 8em;
+                display: flex;
+				width: 8.9em;
 				margin: 0 auto;
 				height: 1.8em;
 			}
@@ -23,7 +24,7 @@
 				margin: -4.25em 0 0 0;
 				width: 1.5em;
 				height: 12em;
-				float: left;
+				float: center;
 			}
 			li {
 				height: 2.2em;
@@ -52,60 +53,61 @@
 			#carbonads-container .carbonad {
 				margin: 0 auto;
 			}
+			#history-table {
+    font-size: 1.7em;
+    width: 70%;
+    margin: 2em auto;
+    text-align: center;
+}
+#history-table th, #history-table td {
+    padding: 0.7em 1.2em;
+    text-align: center;
+}
+h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 2em;
+    font-weight: bold;
+}
 		</style>
 	</head>
 <body>
 <h1>Nombor Bertuah</h1>
 	<div class="crappy-plastic-part-made-in-china">
-	  <div class="pad">
-      <ul>
-	      <li></li>
-        </ul>
-	    <ul id="digit-2">
-	      <li>0</li>
-	      <li>1</li>
-	      <li>2</li>
-	      <li>3</li>
-	      <li>4</li>
-	      <li>5</li>
-	      <li>6</li>
-	      <li>7</li>
-	      <li>8</li>
-	      <li>9</li>
-        </ul>
-	    <ul id="digit-1">
-	      <li>0</li>
-	      <li>1</li>
-	      <li>2</li>
-	      <li>3</li>
-	      <li>4</li>
-	      <li>5</li>
-	      <li>6</li>
-	      <li>7</li>
-	      <li>8</li>
-	      <li>9</li>
-        </ul>
-	    <ul id="digit-0">
-	      <li>0</li>
-	      <li>1</li>
-	      <li>2</li>
-	      <li>3</li>
-	      <li>4</li>
-	      <li>5</li>
-	      <li>6</li>
-	      <li>7</li>
-	      <li>8</li>
-	      <li>9</li>
-        </ul>
-        <ul>
-	      <li></li>
-        </ul>
-      </div>
+  <div class="pad">
+    <ul><li></li></ul>
+    <ul id="digit-3">
+      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+    </ul>
+    <ul id="digit-2">
+      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+    </ul>
+    <ul id="digit-1">
+      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+    </ul>
+    <ul id="digit-0">
+      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+    </ul>
+    <ul><li></li></ul>
+  </div>
 </div>
 <div class="interact">
     <a href="#" id="contribute">Cabutan</a>
     <a href='#' onclick='location.reload(true); return false;'>Set Semula</a>
 </div>
+
+<!-- Table untuk paparan nombor yang sudah keluar -->
+<h2>Senarai Nombor Yang Sudah Keluar</h2>
+<table id="history-table" border="1" style="margin-top:1em;">
+    <thead>
+        <tr>
+            <th>Bil</th>
+            <th>Nombor</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
     
 <script src="jquery.js"></script>
 <script src="jquery.roundabout2.js"></script>
@@ -113,84 +115,86 @@
 <script src="jquery.easing.js"></script>
 <script>
 var count = 0,
-	clickable = true;
+    clickable = true,
+    historyNumbers = []; // Array untuk simpan nombor yang sudah keluar
 
 $(document).ready(function() {
-	$('ul').roundabout({
-		shape: "waterWheel"
-	});
-	
-	$('#contribute')
-		.click(function() {
-			if (!clickable) {
-				return false;
-			}
-			
-			$('.interact a').fadeTo(100, 0.5);
-			clickable = false;
-			
-			//count += Math.ceil(Math.random() * 600);
-			//uka=Math.floor(Math.random()* 6+0);
-			//ukb=Math.floor(Math.random()* 9+0);
-			//ukc=Math.floor(Math.random()* 9+0);
-			//count= uka + ukb + ukc;
-			count=Math.floor((Math.random()* 600)+1);
-			//count= '342';
-			applyCount(count);
-			//writeCount(count);
-			//document.write(count);
-			return false;
-		});
-	
-	$('#how-much')
+    // Pastikan roundabout hanya pada digit
+    $('ul[id^="digit-"]').roundabout({
+        shape: "waterWheel"
+    });
 
-		.click(function() {
-			alert('The counter is currently at ' + count + '.');
-			return false;
-		});
+    $('#contribute').click(function() {
+        if (!clickable) {
+            return false;
+        }
+        $('.interact a').fadeTo(100, 0.5);
+        clickable = false;
+
+        // Cari nombor rawak yang belum pernah keluar
+        // Ubah 600 kepada 1500 jika mahu maksimum 1500
+        if (historyNumbers.length >= 1500) {
+            alert("Semua nombor telah dicabut!");
+            $('.interact a').fadeTo(100, 1);
+            clickable = false;
+            return false;
+        }
+        var maxTry = 2000, tryCount = 0;
+        do {
+            count = Math.floor((Math.random() * 1500) + 1); // 1 hingga 1500
+            tryCount++;
+        } while (historyNumbers.indexOf(count) !== -1 && tryCount < maxTry);
+
+        // Animasi digit
+        applyCount(count);
+
+        // Simpan nombor ke dalam sejarah dan kemas kini jadual
+        historyNumbers.push(count);
+        updateHistoryTable();
+
+        return false;
+    });
+
+    $('#how-much').click(function() {
+        alert('The counter is currently at ' + count + '.');
+        return false;
+    });
 });
 
-function applyCount(total) {
-	var i, part, child, factor, distance,
-		count = new String(total),
-		parts = count.split("").reverse();
-		//document.write(count) + "<br>";
-		//document.write(parts);
-
-	if (total > 601) {///must be maximum number + 1 here
-		tilt();
-		return false;
-	}
-
-	//for (i = parts.length - 1; i >= 0; i--) {
-	for (i = 0; i < parts.length; i++) {
-		part = parseInt(parts[i], 10);
-
-		// get current position
-		child = $('ul#digit-' + i).data('roundabout').childInFocus;
-		factor = (part < child) ? (10 + part) - child : part - child;
-		distance = factor * 36;
-		//distance = 360;
-		
-		
-		if (i) {
-			$('ul#digit-' + i).roundabout('animateToDelta', -distance);
-		} else {
-			$('ul#digit-' + i).roundabout('animateToDelta', -distance, function() {
-				$('.interact a').fadeTo(100, 1);
-				clickable = true;
-			});
-		}
-		
-	}
+// Fungsi untuk kemas kini jadual sejarah (4 digit)
+function updateHistoryTable() {
+    var tbody = $('#history-table tbody');
+    tbody.empty();
+    for (var i = 0; i < historyNumbers.length; i++) {
+        var num = historyNumbers[i].toString().padStart(4, '0');
+        tbody.append('<tr><td>' + (i + 1) + '</td><td>' + num + '</td></tr>');
+    }
 }
-/*
-function tilt() {
-	for (var i = 0; i < 7; i++) {
-		var amount = (Math.random()) ? 5 + (Math.random() * 20 - 10) : -5 - (Math.random() * 20 - 10);
-		$('ul#digit-' + i).roundabout('animateToDelta', amount).find('li').css('color', '#c00');
-	}
-}*/
+
+// Fungsi untuk animasi digit (4 digit)
+function applyCount(total) {
+    var str = total.toString().padStart(4, '0');
+    for (var i = 0; i < 4; i++) {
+        var part = parseInt(str[i], 10);
+        var $ul = $('#digit-' + (3 - i));
+        if ($ul.length && $ul.data('roundabout')) {
+            var child = $ul.data('roundabout').childInFocus;
+            var factor = (part < child) ? (10 + part) - child : part - child;
+            var distance = factor * 36;
+            if (i < 3) {
+                $ul.roundabout('animateToDelta', -distance);
+            } else {
+                $ul.roundabout('animateToDelta', -distance, function() {
+                    $('.interact a').fadeTo(100, 1);
+                    clickable = true;
+                });
+            }
+        }
+    }
+}
+
+console.log('jQuery:', typeof $);
+console.log('Roundabout:', typeof $.fn.roundabout);
 </script>
 
 </body>
