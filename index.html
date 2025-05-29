@@ -1,178 +1,234 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<!-- <script src="mint.js" type="text/javascript"></script> -->
-		<meta charset="utf-8" />
-		<title>Cabutan Bertuah - Sambutan Hari Keluarga FAMA</title>		
-		<link href="demo.css" rel="stylesheet" />
-		<style>
-			.crappy-plastic-part-made-in-china {
-				background-color: #222;
-				height: 3em;
-				font-size: 6em;
-				overflow: hidden;
-			}
-			.pad {
+    <head>
+        <meta charset="utf-8" />
+        <title>Cabutan Bertuah - Sambutan Hari Keluarga FAMA</title>		
+        <link href="demo.css" rel="stylesheet" />
+        <style>
+            .crappy-plastic-part-made-in-china {
+                background-color: #222;
+                height: 3em;
+                font-size: 6em;
+                overflow: hidden;
+            }
+            .pad {
                 display: flex;
-				width: 8.9em;
-				margin: 0 auto;
-				height: 1.8em;
-			}
-			ul {
-				list-style: none;
-				padding: 0;
-				margin: -4.25em 0 0 0;
-				width: 1.5em;
-				height: 12em;
-				float: center;
-			}
-			li {
-				height: 2.2em;
-				width: 0.9em;
-				line-height: 2;
-				background-color: #222;
-				color: #fff;
-				text-align: center;
-				cursor: pointer;
-				font-size: 2em;
-				font-weight: bold;
-				font-family: "Helvetica Neue", Arial, sans-serif;
-			}
-				li.roundabout-in-focus {
-					cursor: default;
-				}
-			li span {
-				display: block;
-				padding-top: 0em;
-			}
+                width: 8.9em;
+                margin: 0 auto;
+                height: 1.8em;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: -4.25em 0 0 0;
+                width: 1.5em;
+                height: 12em;
+                float: center;
+            }
+            li {
+                height: 2.2em;
+                width: 0.9em;
+                line-height: 2;
+                background-color: #222;
+                color: #fff;
+                text-align: center;
+                cursor: pointer;
+                font-size: 2em;
+                font-weight: bold;
+                font-family: "Helvetica Neue", Arial, sans-serif;
+            }
+            li.roundabout-in-focus {
+                cursor: default;
+            }
+            li span {
+                display: block;
+                padding-top: 0em;
+            }
 
-			#carbonads-container {
-				clear: both;
-				margin-top: 1em;
-			}
-			#carbonads-container .carbonad {
-				margin: 0 auto;
-			}
-			/* Responsive table & button styles */
-#history-table {
-    font-size: 1.1em;
-    width: 95%;
-    max-width: 500px;
-    margin: 2em auto;
-    text-align: center;
-    border-collapse: collapse;
-}
-#history-table th, #history-table td {
-    padding: 0.5em 0.7em;
-    text-align: center;
-}
-#history-table th {
-    background: #f2f2f2;
-}
-#history-table tr:nth-child(even) {
-    background: #fafafa;
-}
+            #carbonads-container {
+                clear: both;
+                margin-top: 1em;
+            }
+            #carbonads-container .carbonad {
+                margin: 0 auto;
+            }
+            /* Responsive table & button styles */
+            #history-table {
+                font-size: 1.1em;
+                width: 95%;
+                max-width: 500px;
+                margin: 2em auto;
+                text-align: center;
+                border-collapse: collapse;
+            }
+            #history-table th, #history-table td {
+                padding: 0.5em 0.7em;
+                text-align: center;
+            }
+            #history-table th {
+                background: #f2f2f2;
+            }
+            #history-table tr:nth-child(even) {
+                background: #fafafa;
+            }
 
-.interact {
-    text-align: center;
-    margin: 2em 0 1em 0;
-}
-.interact select,
-.interact a {
-    font-size: 1.1em;
-    padding: 0.5em 1.2em;
-    margin: 0.3em 0.5em;
-    border-radius: 0.5em;
-    border: none;
-    background: #2980b9;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.2s;
-    display: inline-block;
-}
-.interact select {
-    background: #fff;
-    color: #222;
-    border: 1px solid #2980b9;
-}
-.interact a:hover,
-.interact select:focus {
-    background: #3498db;
-    color: #fff;
-}
+            .interact {
+                text-align: center;
+                margin: 2em 0 1em 0;
+            }
+            .interact select,
+            .interact a {
+                font-size: 1.1em;
+                padding: 0.5em 1.2em;
+                margin: 0.3em 0.5em;
+                border-radius: 0.5em;
+                border: none;
+                background: #2980b9;
+                color: #fff;
+                cursor: pointer;
+                transition: background 0.2s;
+                display: inline-block;
+            }
+            .interact select {
+                background: #fff;
+                color: #222;
+                border: 1px solid #2980b9;
+            }
+            .interact a:hover,
+            .interact select:focus {
+                background: #3498db;
+                color: #fff;
+            }
 
-@media (max-width: 600px) {
-    #history-table {
-        font-size: 0.95em;
-        width: 100%;
-        max-width: 100vw;
-    }
-    .interact select,
-    .interact a {
-        font-size: 1em;
-        padding: 0.4em 0.7em;
-        margin: 0.2em 0.2em;
-    }
-}
-h2 {
-    text-align: center;
-    font-size: 2em;
-    margin-top: 2em;
-    font-weight: bold;
-}
-		</style>
-	</head>
+            @media (max-width: 600px) {
+                #history-table {
+                    font-size: 0.95em;
+                    width: 100%;
+                    max-width: 100vw;
+                }
+                .interact select,
+                .interact a {
+                    font-size: 1em;
+                    padding: 0.4em 0.7em;
+                    margin: 0.2em 0.2em;
+                }
+            }
+            h2 {
+                text-align: center;
+                font-size: 2em;
+                margin-top: 2em;
+                font-weight: bold;
+            }
+
+            .splash-effect {
+                animation: splash 1.2s cubic-bezier(.36,2.01,.54,.98);
+                box-shadow: 0 0 40px 10px gold, 0 0 80px 30px orange;
+                background: #fff !important;
+                color: #d35400 !important;
+            }
+            @keyframes splash {
+                0%   { transform: scale(1); }
+                20%  { transform: scale(1.25) rotate(-3deg);}
+                40%  { transform: scale(0.95) rotate(2deg);}
+                60%  { transform: scale(1.15) rotate(-1deg);}
+                80%  { transform: scale(1.05);}
+                100% { transform: scale(1); }
+            }
+            @keyframes shake {
+                0% { transform: translateX(0); }
+                20% { transform: translateX(-8px); }
+                40% { transform: translateX(8px); }
+                60% { transform: translateX(-6px); }
+                80% { transform: translateX(6px); }
+                100% { transform: translateX(0); }
+            }
+            .shake-effect {
+                animation: shake 0.6s cubic-bezier(.36,2.01,.54,.98);
+            }
+            .rainbow-glow {
+                text-shadow:
+                    0 0 10px #fff,
+                    0 0 20px #ff00de,
+                    0 0 30px #ff00de,
+                    0 0 40px #00c3ff,
+                    0 0 70px #00c3ff,
+                    0 0 80px #00c3ff,
+                    0 0 100px #00c3ff;
+                transition: text-shadow 0.2s;
+            }
+            /* Hujan hadiah & duit */
+            .gift-rain, .money-rain {
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                pointer-events: none;
+                z-index: 9998;
+            }
+            /* Besarkan emoji hujan hadiah & duit */
+            .gift, .money {
+                position: absolute;
+                font-size: 3em; /* asal 2.2em, kini lebih besar */
+                will-change: transform;
+                animation: fall-gift 2.5s linear forwards;
+            }
+            @keyframes fall-gift {
+                0% { transform: translateY(-10vh) rotate(-20deg) scale(1); opacity: 1;}
+                80% { opacity: 1;}
+                100% { transform: translateY(100vh) rotate(30deg) scale(1.2); opacity: 0.7;}
+            }
+        </style>
+    </head>
 <body>
 <h1>Nombor Bertuah</h1>
-	<div class="crappy-plastic-part-made-in-china">
-  <div class="pad">
-    <ul><li></li></ul>
-    <ul id="digit-3">
-      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
-    </ul>
-    <ul id="digit-2">
-      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
-    </ul>
-    <ul id="digit-1">
-      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
-    </ul>
-    <ul id="digit-0">
-      <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
-    </ul>
-    <ul><li></li></ul>
-  </div>
-</div>
-<div class="interact">
-    <select id="draw-count">
-        <option value="1">1 Cabutan</option>
-        <option value="10">10 Cabutan Serentak</option>
-        <option value="20">20 Cabutan Serentak</option>
-    </select>
-    <a href="#" id="contribute">Cabutan</a>
-    <a href='#' onclick='location.reload(true); return false;'>Set Semula</a>
-</div>
+    <div class="crappy-plastic-part-made-in-china">
+        <div class="pad">
+            <ul><li></li></ul>
+            <ul id="digit-3">
+                <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+            </ul>
+            <ul id="digit-2">
+                <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+            </ul>
+            <ul id="digit-1">
+                <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+            </ul>
+            <ul id="digit-0">
+                <li>0</li><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li>
+            </ul>
+            <ul><li></li></ul>
+        </div>
+    </div>
+    <div class="interact">
+        <select id="draw-count">
+            <option value="1">1 Cabutan</option>
+            <option value="10">10 Cabutan Serentak</option>
+            <option value="20">20 Cabutan Serentak</option>
+        </select>
+        <a href="#" id="contribute">Cabutan</a>
+        <a href='#' onclick='location.reload(true); return false;'>Set Semula</a>
+    </div>
 
-<!-- Table untuk paparan nombor yang sudah keluar -->
-<h2>Senarai Nombor Yang Sudah Keluar</h2>
-<table id="history-table" border="1" style="margin-top:1em;">
-    <thead>
-        <tr>
-            <th>Bil</th>
-            <th>Nombor</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-<canvas id="fireworks-canvas" style="position:fixed;pointer-events:none;top:0;left:0;width:100vw;height:100vh;z-index:9999;"></canvas>
-<audio id="cheer-audio" src="efek.mp3" preload="auto"></audio>
-    
-<script src="jquery.js"></script>
-<script src="jquery.roundabout2.js"></script>
-<script src="jquery.roundabout-shapes2.js"></script>
-<script src="jquery.easing.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script>
+    <!-- Table untuk paparan nombor yang sudah keluar -->
+    <h2>Senarai Nombor Yang Sudah Keluar</h2>
+    <table id="history-table" border="1" style="margin-top:1em;">
+        <thead>
+            <tr>
+                <th>Bil</th>
+                <th>Nombor</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <canvas id="fireworks-canvas" style="position:fixed;pointer-events:none;top:0;left:0;width:100vw;height:100vh;z-index:9999;"></canvas>
+    <div class="gift-rain"></div>
+    <div class="money-rain"></div>
+    <audio id="cheer-audio" src="efek.mp3" preload="auto"></audio>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="jquery.roundabout2.js"></script>
+    <script src="jquery.roundabout-shapes2.js"></script>
+    <script src="jquery.easing.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
 function showFireworks() {
     // Bunga api tengah
     confetti({
@@ -203,6 +259,16 @@ function showFireworks() {
         origin: { x: 1, y: 1 }
     });
 
+    // Tambah confetti bentuk bintang
+    confetti({
+        particleCount: 80,
+        spread: 100,
+        startVelocity: 60,
+        scalar: 2,
+        shapes: ['star'],
+        origin: { x: 0.5, y: 0.2 }
+    });
+
     // Mainkan bunyi sorakan selepas bunga api keluar
     setTimeout(function() {
         var audio = document.getElementById('cheer-audio');
@@ -211,6 +277,37 @@ function showFireworks() {
             audio.play();
         }
     }, 400); // mainkan selepas 0.4 saat bunga api
+}
+
+// Fungsi untuk hujan hadiah
+function rainGift(count = 30) {
+  const gifts = ['🎁','🛍️','🎉','🎊','🎈','🎂','🍬','🍭','🛵','🏍️','🛵💨🐝✨','🎱🥢🎰','🏰🪄🫧🔮'];
+  const container = document.querySelector('.gift-rain');
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'gift';
+    el.innerText = gifts[Math.floor(Math.random() * gifts.length)];
+    el.style.left = Math.random() * 97 + 'vw';
+    el.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+    el.style.fontSize = (2.5 + Math.random() * 2.5) + 'em'; // asal 1.2~3.4em, kini 2.5~5em
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+function rainMoney(count = 40) {
+  const moneys = ['💰','🪙','💵','💸','🤑','💲','💷','💶','🛺','💖','🌸🎀🦩💕🌷','🌕🌗🌑🌓🌕'];
+  const container = document.querySelector('.money-rain');
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'money';
+    el.innerText = moneys[Math.floor(Math.random() * moneys.length)];
+    el.style.left = Math.random() * 97 + 'vw';
+    el.style.animationDuration = (2.2 + Math.random() * 2.8) + 's';
+    el.style.fontSize = (2.2 + Math.random() * 2.8) + 'em'; // asal 1.1~3.4em, kini 2.2~5em
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 4200);
+  }
 }
 
 var count = 0,
@@ -285,7 +382,7 @@ function updateHistoryTable() {
     }
 }
 
-// Fungsi untuk animasi digit (4 digit)
+// Fungsi untuk animasi digit (4 digit) + efek meriah
 function applyCount(total) {
     var str = total.toString().padStart(4, '0');
     for (var i = 0; i < 4; i++) {
@@ -304,25 +401,17 @@ function applyCount(total) {
                 });
             }
         }
+        // Gabung efek splash, shake, dan glow
+        var $li = $ul.find('li').eq(part);
+        $li.addClass('splash-effect shake-effect rainbow-glow');
+        setTimeout(function(li){
+            li.removeClass('splash-effect shake-effect rainbow-glow');
+        }.bind(null, $li), 1200);
     }
+    // Tambah efek hujan hadiah & duit
+    rainGift();
+    rainMoney();
 }
-
-// Unlock audio pada klik pertama
-document.addEventListener('click', function enableAudio() {
-    var audio = document.getElementById('cheer-audio');
-    if (audio) {
-        audio.muted = false;
-        audio.play().then(() => {
-            audio.pause();
-            audio.currentTime = 0;
-            document.removeEventListener('click', enableAudio);
-        }).catch(() => {});
-    }
-});
-
-console.log('jQuery:', typeof $);
-console.log('Roundabout:', typeof $.fn.roundabout);
-</script>
-
+    </script>
 </body>
 </html>
