@@ -7,7 +7,7 @@
  *
  * Terms of Use // jQuery Roundabout Shapes
  *
- * Open source under the BSD license
+ * Open source under the BSD license.
  *
  * Copyright (c) 2009-2011, Fred LeBlanc
  * All rights reserved.
