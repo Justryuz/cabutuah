@@ -52,3 +52,23 @@ h1 {
 	.return a:hover {
 		text-decoration: underline;
 	}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+        margin: 0.7em 0 0.3em;
+    }
+    .interact {
+        margin-top: 1.5em;
+        margin-bottom: 2em;
+        padding-top: 1em;
+    }
+    .interact a {
+        font-size: 1em;
+        padding: 6px 10px;
+        margin: 0 0.4em;
+    }
+    .return {
+        font-size: 1em;
+    }
+}

@@ -1,7 +1,5 @@
-Sistem ini dibangunkan oleh Usop Keram dengan dibantu oleh Ardzry Hafeez.
+Sistem asal oleh Usop Keram & Ardzry Hafeez.
 
-Sistem berfungsi untuk menjana random no. dan no ini boleh digunakan untuk tujuan cabutan bertuah (fungsi asal oleh Usop) dan mengeluarkan output no secara random.
-
-Dimasukkan kedalam PESIMA sebagai projek yang boleh digunakan untuk sebarang tujuan.
+Dikemaskini dan naiktaraf oleh Fahmi Fisal
 
 
