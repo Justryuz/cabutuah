@@ -175,6 +175,43 @@
                 80% { opacity: 1;}
                 100% { transform: translateY(100vh) rotate(30deg) scale(1.2); opacity: 0.7;}
             }
+
+            .history-tables {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: center;
+                gap: 1vw;
+                overflow-x: visible; /* Tiada scroll */
+                margin: 2em 0;
+            }
+            .history-table {
+                flex: 0 0 auto;
+                width: 170px;           /* Lebar lebih kecil */
+                min-width: 120px;
+                font-size: 0.95em;      /* Font lebih kecil */
+                margin-bottom: 0.5em;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+                border-collapse: collapse;
+            }
+            .history-table th, .history-table td {
+                padding: 0.3em 0.3em;
+                font-size: 0.95em;
+                word-break: break-word;
+            }
+            @media (max-width: 900px) {
+                .history-table {
+                    width: 22vw;
+                    min-width: 90px;
+                    max-width: 140px;
+                    font-size: 0.85em;
+                }
+                .history-table th, .history-table td {
+                    font-size: 0.85em;
+                    padding: 0.2em 0.1em;
+                }
+            }
         </style>
     </head>
 <body>
@@ -205,30 +242,83 @@
         </select>
         <a href="#" id="contribute">Cabutan</a>
         <a href='#' onclick='location.reload(true); return false;'>Set Semula</a>
+        <a href="#" id="download-log">Muat Turun</a>
+    </div>
+
+    <!-- Paparan jumlah cabutan -->
+    <div id="statistik-cabutan" style="text-align:center; font-size:1.2em; margin-bottom:1em;">
+        Sudah keluar: <span id="total-keluar">0</span> &nbsp; | &nbsp; Masih belum keluar: <span id="total-belum">1300</span>
     </div>
 
     <!-- Table untuk paparan nombor yang sudah keluar -->
     <h2>Senarai Nombor Yang Sudah Keluar</h2>
-    <table id="history-table" border="1" style="margin-top:1em;">
-        <thead>
-            <tr>
-                <th>Bil</th>
-                <th>Nombor</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="history-tables">
+        <table id="history-table-1" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+        <table id="history-table-2" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+        <table id="history-table-3" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+        <table id="history-table-4" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+        <table id="history-table-5" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+        <table id="history-table-6" class="history-table" border="1">
+            <thead>
+                <tr><th>Bil</th><th>Nombor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Tambah butang di bawah table sejarah -->
     <canvas id="fireworks-canvas" style="position:fixed;pointer-events:none;top:0;left:0;width:100vw;height:100vh;z-index:9999;"></canvas>
     <div class="gift-rain"></div>
     <div class="money-rain"></div>
-    <audio id="cheer-audio" src="efek.mp3" preload="auto"></audio>
+    <!--<audio id="cheer-audio" src="efek.mp3" preload="auto"></audio> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery.roundabout2.js"></script>
     <script src="jquery.roundabout-shapes2.js"></script>
     <script src="jquery.easing.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
+// Total nombor
+var TOTAL_NUMBER = 1300;
+
+// Simpan timestamp setiap cabutan
+var historyTimestamps = [];
+
 function showFireworks() {
     // Bunga api tengah
     confetti({
@@ -314,6 +404,14 @@ var count = 0,
     clickable = true,
     historyNumbers = []; // Array untuk simpan nombor yang sudah keluar
 
+// Kira jumlah nombor yang sudah dan belum keluar
+function updateCabutanStats() {
+    var totalKeluar = historyNumbers.length;
+    var totalBelum = TOTAL_NUMBER - totalKeluar;
+    $('#total-keluar').text(totalKeluar);
+    $('#total-belum').text(totalBelum);
+}
+
 $(document).ready(function() {
     // Pastikan roundabout hanya pada digit
     $('ul[id^="digit-"]').roundabout({
@@ -322,9 +420,7 @@ $(document).ready(function() {
     });
 
     $('#contribute').click(function() {
-        if (!clickable) {
-            return false;
-        }
+        if (!clickable) return false;
         $('.interact a').fadeTo(100, 0.5);
         clickable = false;
 
@@ -332,7 +428,7 @@ $(document).ready(function() {
         var cabutanBaru = [];
         var maxTry = 5000, tryCount = 0;
 
-        if (historyNumbers.length >= 1500) {
+        if (historyNumbers.length >= TOTAL_NUMBER) {
             alert("Semua nombor telah dicabut!");
             $('.interact a').fadeTo(100, 1);
             clickable = false;
@@ -340,12 +436,13 @@ $(document).ready(function() {
         }
 
         while (cabutanBaru.length < drawCount && tryCount < maxTry) {
-            var num = Math.floor((Math.random() * 1500) + 1);
-            if (historyNumbers.indexOf(num) === -1 && cabutanBaru.indexOf(num) === -1) {
+            var excludeArr = historyNumbers.concat(cabutanBaru);
+            var num = getBalancedRandomNumber(excludeArr);
+            if (excludeArr.indexOf(num) === -1) {
                 cabutanBaru.push(num);
             }
             tryCount++;
-            if (historyNumbers.length + cabutanBaru.length >= 1500) break;
+            if (historyNumbers.length + cabutanBaru.length >= TOTAL_NUMBER) break;
         }
 
         if (cabutanBaru.length === 0) {
@@ -355,13 +452,46 @@ $(document).ready(function() {
             return false;
         }
 
-        // Animasi digit untuk nombor terakhir sahaja
-        applyCount(cabutanBaru[cabutanBaru.length - 1]);
-        showFireworks();
+        // Papar queue cabutan satu persatu
+        function animateQueue(idx) {
+            if (idx >= cabutanBaru.length) {
+                // Semua selesai, update history dan enable button
+                historyNumbers = historyNumbers.concat(cabutanBaru);
+                updateHistoryTable();
+                updateCabutanStats();
+                $('.interact a').fadeTo(100, 1);
+                clickable = true;
+                return;
+            }
+            applyCount(cabutanBaru[idx]);
+            showFireworks();
 
-        // Simpan semua nombor ke dalam sejarah dan kemas kini jadual
-        historyNumbers = historyNumbers.concat(cabutanBaru);
-        updateHistoryTable();
+            // Simpan timestamp untuk setiap cabutan
+            historyTimestamps.push(new Date().toLocaleString());
+
+            // Tunggu animasi digit selesai sebelum bacaan suara
+            setTimeout(function() {
+                speakNumber(cabutanBaru[idx]);
+
+                // Tunggu suara habis sebelum ke nombor seterusnya
+                let msg = new SpeechSynthesisUtterance(cabutanBaru[idx].toString().split('').join(' '));
+                msg.lang = 'ms-MY';
+                msg.rate = 0.75;
+                let voices = window.speechSynthesis.getVoices();
+                let bmVoice = voices.find(v => v.lang === 'ms-MY');
+                if (bmVoice) msg.voice = bmVoice;
+
+                msg.onend = function() {
+                    updateHistoryTable(historyNumbers.concat(cabutanBaru.slice(0, idx + 1)));
+                    animateQueue(idx + 1);
+                };
+                window.speechSynthesis.speak(msg);
+            }, 1200); // 1200ms = tempoh animasi digit
+        }
+
+        // Kosongkan highlight table, mula queue
+        updateHistoryTable(historyNumbers);
+        animateQueue(0);
 
         return false;
     });
@@ -373,13 +503,45 @@ $(document).ready(function() {
 });
 
 // Fungsi untuk kemas kini jadual sejarah (4 digit)
-function updateHistoryTable() {
-    var tbody = $('#history-table tbody');
-    tbody.empty();
-    for (var i = 0; i < historyNumbers.length; i++) {
-        var num = historyNumbers[i].toString().padStart(4, '0');
-        tbody.append('<tr><td>' + (i + 1) + '</td><td>' + num + '</td></tr>');
+function updateHistoryTable(arr) {
+    var data = arr || historyNumbers;
+    var perTable = 10;
+    var totalTable = Math.ceil(data.length / perTable);
+
+    // Buang semua table sejarah lama
+    $('.history-tables').empty();
+
+    // Bina table-table baru ikut keperluan
+    for (let t = 0; t < totalTable; t++) {
+        // Cipta table baru
+        let table = $('<table/>', {
+            id: 'history-table-' + (t + 1),
+            class: 'history-table',
+            border: 1
+        });
+        let thead = $('<thead><tr><th>Bil</th><th>Nombor</th></tr></thead>');
+        let tbody = $('<tbody></tbody>');
+        table.append(thead).append(tbody);
+
+        let start = t * perTable;
+        let end = Math.min((t + 1) * perTable, data.length);
+        let sub = data.slice(start, end);
+
+        if (sub.length === 0) {
+            tbody.append('<tr><td colspan="2" style="color:#888;">Belum ada cabutan</td></tr>');
+        } else {
+            for (let i = 0; i < sub.length; i++) {
+                let num = sub[i].toString();
+                tbody.append('<tr><td>' + (start + i + 1) + '</td><td>' + num + '</td></tr>');
+            }
+        }
+        $('.history-tables').append(table);
     }
+
+    var totalKeluar = data.length;
+    var totalBelum = TOTAL_NUMBER - totalKeluar;
+    $('#total-keluar').text(totalKeluar);
+    $('#total-belum').text(totalBelum);
 }
 
 // Fungsi untuk animasi digit (4 digit) + efek meriah
@@ -412,6 +574,90 @@ function applyCount(total) {
     rainGift();
     rainMoney();
 }
+
+function getBalancedRandomNumber(excludeArr) {
+    // 25% peluang setiap kategori digit
+    var rand = Math.random();
+    var kategori;
+    if (rand < 0.25) {
+        kategori = 0; // 1 digit (3001-3009)
+    } else if (rand < 0.50) {
+        kategori = 1; // 2 digit (3010-3099)
+    } else if (rand < 0.75) {
+        kategori = 2; // 3 digit (3100-3999)
+    } else {
+        kategori = 3; // 4 digit (4000-4300)
+    }
+
+    var num, maxTry = 100, tryCount = 0;
+    do {
+        if (kategori === 0) {
+            num = 3001 + Math.floor(Math.random() * 9); // 3001-3009
+        } else if (kategori === 1) {
+            num = 3010 + Math.floor(Math.random() * 90); // 3010-3099
+        } else if (kategori === 2) {
+            num = 3100 + Math.floor(Math.random() * 900); // 3100-3999
+        } else {
+            num = 4000 + Math.floor(Math.random() * 301); // 4000-4300
+        }
+        tryCount++;
+    } while (
+        excludeArr.indexOf(num) !== -1 && tryCount < maxTry
+    );
+    return num;
+}
+
+// Fungsi untuk export log ke CSV (boleh dibuka dengan Excel)
+function downloadLogExcel() {
+    let csv = 'Bil,Nombor,Timestamp\n';
+    for (let i = 0; i < historyNumbers.length; i++) {
+        let num = historyNumbers[i].toString();
+        let ts = historyTimestamps[i] || '';
+        csv += (i + 1) + ',' + num + ',' + ts + '\n';
+    }
+    // Buat fail dan trigger download
+    let blob = new Blob([csv], { type: 'text/csv' });
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = 'log-cabutan.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Trigger bila klik butang
+$('#download-log').click(function(e) {
+    e.preventDefault();
+    downloadLogExcel();
+});
+
+function speakNumber(num) {
+    let str = num.toString();
+    let digits = str.split('').join(' ');
+    let msg = new SpeechSynthesisUtterance(digits);
+    msg.lang = 'ms-MY';
+    msg.rate = 0.75;
+
+    // Fungsi untuk pilih suara ms-MY jika ada
+    function setVoiceAndSpeak() {
+        let voices = window.speechSynthesis.getVoices();
+        let bmVoice = voices.find(v => v.lang === 'ms-MY');
+        if (bmVoice) {
+            msg.voice = bmVoice;
+        }
+        window.speechSynthesis.speak(msg);
+    }
+
+    // Jika voices belum dimuat, tunggu event
+    if (window.speechSynthesis.getVoices().length === 0) {
+        window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
+    } else {
+        setVoiceAndSpeak();
+    }
+}
+console.log(window.speechSynthesis.getVoices());
     </script>
 </body>
 </html>
