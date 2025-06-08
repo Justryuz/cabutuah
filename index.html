@@ -413,10 +413,13 @@ function updateCabutanStats() {
 }
 
 $(document).ready(function() {
+    loadCabutanData();
+    updateHistoryTable();
+    updateCabutanStats();
     // Pastikan roundabout hanya pada digit
     $('ul[id^="digit-"]').roundabout({
         shape: "waterWheel",
-        duration: 1200 // dalam milisaat (1200ms = 1.2 saat)
+        duration: 500 // asal 1200, kini 600ms untuk animasi lebih laju
     });
 
     $('#contribute').click(function() {
@@ -457,6 +460,7 @@ $(document).ready(function() {
             if (idx >= cabutanBaru.length) {
                 // Semua selesai, update history dan enable button
                 historyNumbers = historyNumbers.concat(cabutanBaru);
+                saveCabutanData();
                 updateHistoryTable();
                 updateCabutanStats();
                 $('.interact a').fadeTo(100, 1);
@@ -471,10 +475,10 @@ $(document).ready(function() {
 
             // Tunggu animasi digit selesai sebelum bacaan suara
             setTimeout(function() {
-                speakNumber(cabutanBaru[idx]);
-
-                // Tunggu suara habis sebelum ke nombor seterusnya
-                let msg = new SpeechSynthesisUtterance(cabutanBaru[idx].toString().split('').join(' '));
+                // Bacakan nombor
+                let str = cabutanBaru[idx].toString();
+                let digits = str.split('').join(' ');
+                let msg = new SpeechSynthesisUtterance(digits);
                 msg.lang = 'ms-MY';
                 msg.rate = 0.75;
                 let voices = window.speechSynthesis.getVoices();
@@ -482,11 +486,12 @@ $(document).ready(function() {
                 if (bmVoice) msg.voice = bmVoice;
 
                 msg.onend = function() {
+                    // Papar nombor dalam table selepas suara habis
                     updateHistoryTable(historyNumbers.concat(cabutanBaru.slice(0, idx + 1)));
                     animateQueue(idx + 1);
                 };
                 window.speechSynthesis.speak(msg);
-            }, 1200); // 1200ms = tempoh animasi digit
+            }, 600); // asal 1200ms, kini 600ms
         }
 
         // Kosongkan highlight table, mula queue
@@ -557,7 +562,7 @@ function applyCount(total) {
             if (i < 3) {
                 $ul.roundabout('animateToDelta', -distance);
             } else {
-                $ul.roundabout('animateToDelta', -distance, { duration: 1200 }, function() {
+                $ul.roundabout('animateToDelta', -distance, { duration: 600 }, function() { // asal 1200
                     $('.interact a').fadeTo(100, 1);
                     clickable = true;
                 });
@@ -638,9 +643,8 @@ function speakNumber(num) {
     let digits = str.split('').join(' ');
     let msg = new SpeechSynthesisUtterance(digits);
     msg.lang = 'ms-MY';
-    msg.rate = 0.75;
+    msg.rate = 2.5; // Lebih laju, boleh ubah ikut kesesuaian
 
-    // Fungsi untuk pilih suara ms-MY jika ada
     function setVoiceAndSpeak() {
         let voices = window.speechSynthesis.getVoices();
         let bmVoice = voices.find(v => v.lang === 'ms-MY');
@@ -650,13 +654,30 @@ function speakNumber(num) {
         window.speechSynthesis.speak(msg);
     }
 
-    // Jika voices belum dimuat, tunggu event
     if (window.speechSynthesis.getVoices().length === 0) {
         window.speechSynthesis.onvoiceschanged = setVoiceAndSpeak;
     } else {
         setVoiceAndSpeak();
     }
 }
+
+// Simpan
+function saveCabutanData() {
+    localStorage.setItem('cabutan_historyNumbers', JSON.stringify(historyNumbers));
+    localStorage.setItem('cabutan_historyTimestamps', JSON.stringify(historyTimestamps));
+}
+// Load
+function loadCabutanData() {
+    let nums = localStorage.getItem('cabutan_historyNumbers');
+    let ts = localStorage.getItem('cabutan_historyTimestamps');
+    if (nums) historyNumbers = JSON.parse(nums);
+    if (ts) historyTimestamps = JSON.parse(ts);
+}
+
+// Buang data sejarah cabutan
+// localStorage.removeItem('cabutan_historyNumbers');
+// localStorage.removeItem('cabutan_historyTimestamps');
+
 console.log(window.speechSynthesis.getVoices());
     </script>
 </body>
